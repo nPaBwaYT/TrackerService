@@ -1,15 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc;
+using TrackerService.Domain.UseCases;
+using TrackerService.Schemas;
+using TrackerService.UseCases;
 
 namespace TrackerService.ApiControllers;
 
 
 [ApiController]
 [Route("[controller]")]
-public class GoodsApiController
+public class GoodsController
 {
-    [HttpGet(nameof(Get))]
-    public int Get(int id)
+    private AbstractGoodsUseCases GoodsUC = new GoodsUseCases();
+    
+    [HttpGet()]
+    public List<GoodsSchema> GetList()
     {
-        return id;
+        return GoodsUC.GetList();
+    }
+    
+    [HttpPost()]
+    public void Add(GoodsAddSchema goods)
+    {
+        GoodsUC.Add(goods);
+    }
+    
+    [HttpGet(nameof(GetInfo))]
+    public GoodsInfoSchema GetInfo(int id)
+    {
+        return GoodsUC.GetById(id);
     }
 }
