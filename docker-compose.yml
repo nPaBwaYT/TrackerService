@@ -2,7 +2,7 @@
   trackerservice:
     image: trackerservice
     build:
-      context: .
+      context: /src
       dockerfile: TrackerService/Dockerfile
       
   postgres:

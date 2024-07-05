@@ -1,4 +1,7 @@
-﻿namespace TrackerService;
+﻿using Microsoft.EntityFrameworkCore;
+using TrackerService.DataBase;
+
+namespace TrackerService;
 
 public class Startup
 {
@@ -16,6 +19,9 @@ public class Startup
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+        
+        services.AddDbContext<TrackerContext>(options =>
+            options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
