@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
+using TrackerService.DataBase;
 using TrackerService.Domain.UseCases;
 using TrackerService.Schemas;
 using TrackerService.UseCases;
@@ -12,23 +13,30 @@ namespace TrackerService.ApiControllers;
 [Route("[controller]")]
 public class GoodsController
 {
+    private readonly TrackerContext _context;
+
+    public GoodsController(TrackerContext context)
+    {
+        _context = context;
+    }
+    
     private AbstractGoodsUseCases GoodsUC = new GoodsUseCases();
     
     [HttpGet()]
-    public List<GoodsSchema> GetList()
+    public async Task<ActionResult<IEnumerable<GoodsSchema>>> GetList()
     {
-        return GoodsUC.GetList();
+        return await GoodsUC.GetList(_context);
     }
     
     [HttpPost()]
-    public void Add(GoodsAddSchema goods)
+    public async Task<string> Add(GoodsAddSchema goods)
     {
-        GoodsUC.Add(goods);
+        return await GoodsUC.Add(goods, _context);
     }
     
     [HttpGet(nameof(GetInfo))]
-    public GoodsInfoSchema GetInfo(int id)
+    public async Task<ActionResult<GoodsInfoSchema>> GetInfo(int id)
     {
-        return GoodsUC.GetById(id);
+        return await GoodsUC.GetById(id, _context);
     }
 }

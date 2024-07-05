@@ -16,5 +16,8 @@ namespace TrackerService.DataBase
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder
                 .UseSnakeCaseNamingConvention();
+        
+        protected override void OnModelCreating(ModelBuilder builder) 
+            => builder.UseIdentityColumns();
     }
 }

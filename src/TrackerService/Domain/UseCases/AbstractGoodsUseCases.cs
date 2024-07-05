@@ -1,10 +1,12 @@
-﻿using TrackerService.Schemas;
+﻿using Microsoft.AspNetCore.Mvc;
+using TrackerService.DataBase;
+using TrackerService.Schemas;
 
 namespace TrackerService.Domain.UseCases;
 
 public abstract class AbstractGoodsUseCases
 {
-    public abstract void Add(GoodsAddSchema goods);
-    public abstract GoodsInfoSchema GetById(int id);
-    public abstract List<GoodsSchema> GetList();
+    public abstract Task<string> Add(GoodsAddSchema goods, TrackerContext context);
+    public abstract Task<ActionResult<GoodsInfoSchema>> GetById(int id, TrackerContext context);
+    public abstract Task<ActionResult<IEnumerable<GoodsSchema>>> GetList(TrackerContext context);
 }

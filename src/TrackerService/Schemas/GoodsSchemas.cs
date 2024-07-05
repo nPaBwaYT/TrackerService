@@ -1,4 +1,6 @@
-﻿namespace TrackerService.Schemas;
+﻿using TrackerService.Models;
+
+namespace TrackerService.Schemas;
 
 public class GoodsSchema
 {
@@ -19,6 +21,12 @@ public class GoodsAddSchema
     public GoodsAddSchema(string name)
     {
         Name = name;
+    }
+    public Goods conv()
+    {
+        Goods _product = new Goods();
+        _product.Name = Name;
+        return _product;
     }
 }
 
