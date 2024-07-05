@@ -2,32 +2,32 @@
 
 public class GoodsSchema
 {
-    public int id { set; get; }
-    public string name { set; get; }
+    public int Id { set; get; }
+    public string Name { set; get; }
 
-    public GoodsSchema(int _id, string _name)
+    public GoodsSchema(int id, string name)
     {
-        id = _id;
-        name = _name;
+        Id = id;
+        Name = name;
     }
 }
 
 public class GoodsAddSchema
 {
-    public string name { set; get; }
+    public string Name { set; get; }
     
-    public GoodsAddSchema(string _name)
+    public GoodsAddSchema(string name)
     {
-        name = _name;
+        Name = name;
     }
 }
 
 public class GoodsInfoSchema
 {
-    public string name { set; get; }
+    public string Name { set; get; }
 
-    public GoodsInfoSchema(string _name)
+    public GoodsInfoSchema(string name)
     {
-        name = _name;
+        Name = name;
     }
 }
