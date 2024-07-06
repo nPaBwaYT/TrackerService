@@ -1,25 +1,36 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using TrackerService.DataBase;
 using TrackerService.Domain.UseCases;
+using TrackerService.Models;
 using TrackerService.Schemas;
 
 namespace TrackerService.UseCases;
 
 public class GoodsUseCases:AbstractGoodsUseCases
 {
-    public override void Add(GoodsAddSchema goods)
+    
+    public override async Task<string> Add(GoodsAddSchema product, TrackerContext context)
     {
-        /*UOW Uow = await OpenSession();
-        await AddGoods(AbstractUOW Uow, GoodsAddSchema goods);
-        await Uow.CloseSession();*/
+        context.Products.Add(product.conv());
+        return "status: OK";
     }
 
-    public override GoodsInfoSchema GetById(int id)
+    public override async Task<ActionResult<GoodsInfoSchema>> GetById(int id, TrackerContext context)
     {
-        return new GoodsInfoSchema("name");
+        var product = await context.Products.FindAsync(id);
+        return new GoodsInfoSchema(product.Name);
     }
 
-    public override List<GoodsSchema> GetList()
+    public override async Task<ActionResult<IEnumerable<GoodsSchema>>> GetList(TrackerContext context)
     {
-        return [];
+        List<GoodsSchema> products = new List<GoodsSchema>();
+        foreach (var product in await context.Products.ToListAsync())
+        {
+            products.Add(new GoodsSchema(product.Id, product.Name));
+        }
+
+        return products;
     }
 }
