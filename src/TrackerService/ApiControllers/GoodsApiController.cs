@@ -11,32 +11,32 @@ namespace TrackerService.ApiControllers;
 
 [ApiController]
 [Route("[controller]")]
-public class GoodsController
+public class ProductController
 {
     private readonly TrackerContext _context;
+    private AbstractProductsUseCases _productUC;
 
-    public GoodsController(TrackerContext context)
+    public ProductController(TrackerContext context)
     {
+        _productUC = new ProductsUseCases();
         _context = context;
     }
     
-    private AbstractGoodsUseCases GoodsUC = new GoodsUseCases();
-    
     [HttpGet()]
-    public async Task<ActionResult<IEnumerable<GoodsSchema>>> GetList()
+    public async Task<ActionResult<IEnumerable<ProductSchema>>> GetList()
     {
-        return await GoodsUC.GetList(_context);
+        return await _productUC.GetList(_context);
     }
     
     [HttpPost()]
-    public async Task<string> Add(GoodsAddSchema goods)
+    public async Task<string> Add(ProductAddSchema product)
     {
-        return await GoodsUC.Add(goods, _context);
+        return await _productUC.Add(product, _context);
     }
     
     [HttpGet(nameof(GetInfo))]
-    public async Task<ActionResult<GoodsInfoSchema>> GetInfo(int id)
+    public async Task<ActionResult<ProductInfoSchema>> GetInfo(long id)
     {
-        return await GoodsUC.GetById(id, _context);
+        return await _productUC.GetById(id, _context);
     }
 }

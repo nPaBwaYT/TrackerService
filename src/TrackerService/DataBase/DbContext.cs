@@ -7,7 +7,7 @@ namespace TrackerService.DataBase
     public class TrackerContext : DbContext
     {
         /*public DbSet<Users> Users { get; set; }*/
-        public DbSet<Goods> Products { get; set; }
+        public DbSet<Products> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         
         

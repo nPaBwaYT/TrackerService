@@ -2,39 +2,39 @@
 
 namespace TrackerService.Schemas;
 
-public class GoodsSchema
+public class ProductSchema
 {
-    public int Id { set; get; }
+    public long Id { set; get; }
     public string Name { set; get; }
 
-    public GoodsSchema(int id, string name)
+    public ProductSchema(long id, string name)
     {
         Id = id;
         Name = name;
     }
 }
 
-public class GoodsAddSchema
+public class ProductAddSchema
 {
     public string Name { set; get; }
     
-    public GoodsAddSchema(string name)
+    public ProductAddSchema(string name)
     {
         Name = name;
     }
-    public Goods conv()
+    public Products conv()
     {
-        Goods _product = new Goods();
+        Products _product = new Products();
         _product.Name = Name;
         return _product;
     }
 }
 
-public class GoodsInfoSchema
+public class ProductInfoSchema
 {
     public string Name { set; get; }
 
-    public GoodsInfoSchema(string name)
+    public ProductInfoSchema(string name)
     {
         Name = name;
     }

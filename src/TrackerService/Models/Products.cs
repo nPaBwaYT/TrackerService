@@ -5,9 +5,9 @@ using TrackerService.Schemas;
 
 namespace TrackerService.Models;
 
-public class Goods
+public class Products
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { set; get; }
+    public long Id { set; get; }
     public string Name { set; get; }
 }

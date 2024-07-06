@@ -7,7 +7,7 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["TrackerService/TrackerService.csproj", "TrackerService/TrackerService.csproj"]
+COPY ["TrackerService/TrackerService.csproj", "TrackerService/"]
 RUN dotnet restore "TrackerService/TrackerService.csproj"
 COPY . .
 
