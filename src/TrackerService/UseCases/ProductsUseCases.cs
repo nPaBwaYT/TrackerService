@@ -8,27 +8,27 @@ using TrackerService.Schemas;
 
 namespace TrackerService.UseCases;
 
-public class GoodsUseCases:AbstractGoodsUseCases
+public class ProductsUseCases:AbstractProductsUseCases
 {
     
-    public override async Task<string> Add(GoodsAddSchema product, TrackerContext context)
+    public override async Task<string> Add(ProductAddSchema product, TrackerContext context)
     {
         context.Products.Add(product.conv());
         return "status: OK";
     }
 
-    public override async Task<ActionResult<GoodsInfoSchema>> GetById(int id, TrackerContext context)
+    public override async Task<ActionResult<ProductInfoSchema>> GetById(long id, TrackerContext context)
     {
         var product = await context.Products.FindAsync(id);
-        return new GoodsInfoSchema(product.Name);
+        return new ProductInfoSchema(product.Name);
     }
 
-    public override async Task<ActionResult<IEnumerable<GoodsSchema>>> GetList(TrackerContext context)
+    public override async Task<ActionResult<IEnumerable<ProductSchema>>> GetList(TrackerContext context)
     {
-        List<GoodsSchema> products = new List<GoodsSchema>();
+        List<ProductSchema> products = new List<ProductSchema>();
         foreach (var product in await context.Products.ToListAsync())
         {
-            products.Add(new GoodsSchema(product.Id, product.Name));
+            products.Add(new ProductSchema(product.Id, product.Name));
         }
 
         return products;

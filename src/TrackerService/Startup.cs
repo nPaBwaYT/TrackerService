@@ -39,10 +39,7 @@ public class Startup
         }
 
         app.UseHttpsRedirection();
-
-        app.UseAuthorization();
-
-        app.UseHttpsRedirection();
+        
         app.UseStaticFiles();
 
         app.UseRouting();
