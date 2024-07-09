@@ -15,12 +15,11 @@ namespace TrackerService.Migrations
                 name: "orders",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    product_id = table.Column<int>(type: "integer", nullable: false),
+                    product_id = table.Column<long>(type: "bigint", nullable: false),
                     destination = table.Column<string>(type: "text", nullable: false),
-                    status = table.Column<string>(type: "text", nullable: false),
-                    is_completed = table.Column<bool>(type: "boolean", nullable: false)
+                    status = table.Column<short>(type: "smallint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,7 +30,7 @@ namespace TrackerService.Migrations
                 name: "products",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "text", nullable: false)
                 },

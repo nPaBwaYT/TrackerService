@@ -1,4 +1,5 @@
-﻿using TrackerService.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using TrackerService.Models;
 
 namespace TrackerService.Schemas;
 
@@ -16,15 +17,16 @@ public class ProductSchema
 
 public class ProductAddSchema
 {
+    [Required]
     public string Name { set; get; }
     
     public ProductAddSchema(string name)
     {
         Name = name;
     }
-    public Products conv()
+    public Product ToModel()
     {
-        Products _product = new Products();
+        Product _product = new Product();
         _product.Name = Name;
         return _product;
     }

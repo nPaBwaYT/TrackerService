@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using TrackerService.DataBase;
 
 namespace TrackerService;
@@ -14,14 +15,21 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddAuthorization();
-
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-        
+
         services.AddDbContext<TrackerContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+        
+        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.LoginPath = new PathString("/Auth/Login");
+            });
+        services.AddAuthorization();
+        
+        services.AddControllersWithViews();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -38,12 +46,13 @@ public class Startup
             app.UseHsts();
         }
 
-        app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
         
         app.UseStaticFiles();
 
         app.UseRouting();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.UseEndpoints(endpoints =>

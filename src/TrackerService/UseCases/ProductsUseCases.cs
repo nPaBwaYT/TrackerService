@@ -11,15 +11,24 @@ namespace TrackerService.UseCases;
 public class ProductsUseCases:AbstractProductsUseCases
 {
     
-    public override async Task<string> Add(ProductAddSchema product, TrackerContext context)
+    public override async Task<IActionResult> Add(ProductAddSchema product, TrackerContext context)
     {
-        context.Products.Add(product.conv());
-        return "status: OK";
+        if (product.Name.Split(' ')[0].Length == 0)
+        {
+            return new InvalidStringInputResponse();
+        }
+        context.Products.Add(product.ToModel());
+        await context.SaveChangesAsync();
+        return new OkResult();
     }
 
     public override async Task<ActionResult<ProductInfoSchema>> GetById(long id, TrackerContext context)
     {
         var product = await context.Products.FindAsync(id);
+        if (product == null)
+        {
+            return new EntityDoesNotExistResponse();
+        }
         return new ProductInfoSchema(product.Name);
     }
 
@@ -32,5 +41,17 @@ public class ProductsUseCases:AbstractProductsUseCases
         }
 
         return products;
+    }
+
+    public override async Task<IActionResult> Delete(long id, TrackerContext context)
+    {
+        var product = await context.Products.FindAsync(id);
+        if (product == null)
+        {
+            return new EntityDoesNotExistResponse();
+        }
+        context.Products.Remove(product);
+        await context.SaveChangesAsync();
+        return new OkResult();
     }
 }
