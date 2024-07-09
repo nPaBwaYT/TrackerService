@@ -33,7 +33,7 @@ public class AuthUseCases: AbstractAuthUseCases
             return new CreatedResult();
         }
 
-        return new AuthErrorResponse();
+        return new UserAlreadyExistsResponse();
     }
 
     public override async Task<IActionResult> Login(LoginSchema login, TrackerContext context, HttpContext httpContext)

@@ -28,3 +28,8 @@ public class AuthErrorResponse: Response
 {
     public AuthErrorResponse() : base("Incorrect email or password", 400) {}
 }
+
+public class UserAlreadyExistsResponse : Response
+{
+    public UserAlreadyExistsResponse() : base("User with this email already exists", 400) {}
+}

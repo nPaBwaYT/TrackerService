@@ -12,11 +12,11 @@ public class Order
     public long Id { set; get; }
     
     [Required]
-    [ForeignKey("Product.Id")]
+    [ForeignKey("Product")]
     public long ProductId { set; get; }
     
     [Required]
-    [ForeignKey("User.Id")]
+    [ForeignKey("User")]
     public long UserId { set; get; }
     
     [Required]

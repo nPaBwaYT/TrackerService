@@ -18,6 +18,7 @@ public class Startup
     {
         services.AddControllers();
         services.AddEndpointsApiExplorer();
+        
         services.AddSwaggerGen(options =>
         {
             var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
