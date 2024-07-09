@@ -16,7 +16,7 @@ public class OrdersUseCases: AbstractOrdersUseCases
         }
         context.Orders.Add(order.ToModel());
         await context.SaveChangesAsync();
-        return new OkResult();
+        return new CreatedResult();
     }
 
     public override async Task<IActionResult> Delete(long id, TrackerContext context)

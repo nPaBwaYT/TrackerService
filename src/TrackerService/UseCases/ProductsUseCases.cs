@@ -19,7 +19,7 @@ public class ProductsUseCases:AbstractProductsUseCases
         }
         context.Products.Add(product.ToModel());
         await context.SaveChangesAsync();
-        return new OkResult();
+        return new CreatedResult();
     }
 
     public override async Task<ActionResult<ProductInfoSchema>> GetById(long id, TrackerContext context)

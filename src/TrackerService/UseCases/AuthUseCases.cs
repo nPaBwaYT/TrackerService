@@ -28,9 +28,9 @@ public class AuthUseCases: AbstractAuthUseCases
             context.Users.Add(regUser);
             await context.SaveChangesAsync();
 
-            await Authenticate(register.Email, httpContext); // аутентификация
+            await Authenticate(register.Email, httpContext);
 
-            return new OkResult();
+            return new CreatedResult();
         }
 
         return new AuthErrorResponse();
@@ -55,17 +55,17 @@ public class AuthUseCases: AbstractAuthUseCases
 
     public override async Task<IActionResult> Logout(HttpContext httpContext)
     {
-        // await httpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        await httpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return new OkResult();
     }
     
-    private async Task Authenticate(string userName, HttpContext context)
+    private async Task Authenticate(string userName, HttpContext httpContext)
     {
         var claims = new List<Claim>
         {
             new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
         };
         ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-        // await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+        await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
     }
 }
